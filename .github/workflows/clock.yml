@@ -1,0 +1,37 @@
+name: "打卡"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "50 23 * * *"  # 上班卡-每天早上7点50分
+    - cron: "01 10 * * *"  # 下班卡-每天下午6点01分
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+        
+    - name: Install depend
+      run: |
+        pip install certifi
+        pip install cffi
+        pip install charset-normalizer
+        pip install cryptography
+        pip install idna
+        pip install numpy
+        pip install opencv-python
+        pip install pycparser
+        pip install requests
+        pip install urllib3
+
+    - name: Start sign
+      env:
+        USER: ${{ secrets.USER }}
+      run: |
+        python index.py

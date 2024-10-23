@@ -1,0 +1,10 @@
+.idea/
+.venv/
+script/
+__pycache__/
+version/
+cv2/
+
+*.json
+*.zip
+*.bat
