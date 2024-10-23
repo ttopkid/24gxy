@@ -1,5 +1,6 @@
 import threading
 from modules.msg_pusher import push_to_pushplus
+from modules.load_config import dprint
 from modules.send_sign_in import send_sign_in, global_sign_results, gmt_time
 
 
@@ -35,4 +36,5 @@ def send_sign_in_threading(users):
         try:
             push_to_pushplus(users_with_same_pushkey, title, content, pushKey)
         except Exception as e:
-            print(f"推送失败, 错误原因: {str(e)}")
+            print(f"推送失败, 错误原因请在主程序设置debug=True后重新运行程序查看。")
+            dprint(f"{str(e)}")

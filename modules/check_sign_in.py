@@ -1,4 +1,5 @@
 import requests
+from modules.load_config import dprint
 from datetime import datetime, timedelta
 
 
@@ -17,15 +18,16 @@ def check_sign(check_sign_token, sign_type):
     headers = {"Authorization": f"{check_sign_token}"}
     response = requests.post(check_sign_url, json=data, headers=headers)
     response_data = response.json()
-    # ❗开发环境输出, 打印打卡记录的响应内容
-    # print(response_data)
 
-    # 检查是否有过签到
+    # ❗开发环境输出, 打印打卡记录的响应内容
+    # dprint(response_data)
+
+    # 检查是否有过打卡记录
     for record in response_data["data"]:
         if record["type"] == sign_type:
-            # print("打过卡了")
+            # 打过卡
             return True
-    # print("没打过卡")
+    # 没打过卡
     return False
 
 
@@ -55,10 +57,10 @@ def get_current_day():
 
 
 # 开发环境测试环境解除注释
-# print("\n❗注意：以下输出是check_sign模块的开发环境信息，👇")
+# dprint("\n❗注意：以下输出是check_sign模块的开发环境信息，👇")
 # day_start_time, day_end_time = get_current_day()
-# print("打卡信息查询日期范围:\n", day_start_time, "→", day_end_time)
+# dprint("打卡信息查询日期范围:\n", day_start_time, "→", day_end_time)
 # check_sign(
-#     check_sign_token="eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJtb2d1ZGluZy11c2VyIiwic3ViIjoie1wibG9naW5UeXBlXCI6XCJ3ZWJcIixcInVzZXJJZFwiOjEwNjY0ODAyN30iLCJhdWQiOiJtb2d1ZGluZyIsImV4cCI6MjA0NTI4Mzc0MiwibmJmIjoxNzI5NjYzNjQyLCJpYXQiOjE3Mjk2NjQ1NDJ9.pPnKypQaNub0l96aqCA-hkv0Hg2igosq8yOdgvONVjyHuS-3Y8Ul0Agf1Ru4PEEMRsHzGAVESQT9uY3DMQ_c1w",
+#     check_sign_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 #     sign_type="START",
 # )

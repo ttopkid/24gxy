@@ -1,9 +1,8 @@
-import json, time, json, time, uuid, random, base64, struct, requests
+import json, time, requests, uuid, random, base64, struct, requests, cv2
 from modules.crypto_aes import aes_encrypt, aes_decrypt
+from modules.load_config import dprint
 import numpy as np
-import cv2
 from typing import Optional
-import requests
 
 
 request_headers = {
@@ -43,8 +42,9 @@ def get_token(user):
         "登陆失败, 看到这条提示代表官方接口又更新了, 请在github留issue。",
     )
     user_info = json.loads(aes_decrypt(rsp.get("data", "")))
+
     # ❗开发环境输出, 打印登录响应内容, 从此查看是否获取到token
-    # print(user_info)
+    # dprint(user_info)
 
     return user_info
 

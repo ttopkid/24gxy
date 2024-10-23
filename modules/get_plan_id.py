@@ -1,5 +1,4 @@
 import json, requests
-
 from modules.map_headers import header_user_agent
 
 

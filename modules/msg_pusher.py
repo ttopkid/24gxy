@@ -1,4 +1,5 @@
 import requests
+from modules.load_config import dprint
 
 
 # 推送消息到PushPlus
@@ -14,11 +15,14 @@ def push_to_pushplus(users, title, content, token):
     )
     resp = requests.post(url)
     result = resp.json()
+
     if result["code"] == 200:
         for user in users:
-            print(f'√ [{user["remark"]}/{user["phone"]}]消息推送成功！')
+            dprint(f'[{user["remark"]}/{user["phone"]}]', end="")
+            print(f"√ 用户消息推送成功！", end="")
+            dprint(f"响应内容: {resp.text}")
     else:
         for user in users:
-            print(
-                f'× [{user["remark"]}/{user["phone"]}]推送消息提醒失败！原因: {result.get("msg", "未知错误")}'
-            )
+            dprint(f'[{user["remark"]}/{user["phone"]}]', end="")
+            print(f"X 推送消息提醒失败！", end="")
+            dprint(f"响应内容: {resp.text}")

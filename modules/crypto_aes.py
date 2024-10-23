@@ -1,6 +1,5 @@
 import logging
 from hashlib import md5
-from datetime import datetime, timedelta
 from packages.aes_pkcs5.algorithms.aes_ecb_pkcs5_padding import AESECBPKCS5Padding
 
 logging.basicConfig(
@@ -81,29 +80,3 @@ def aes_decrypt(
     except Exception as e:
         logger.error(f"解密失败: {e}")
         raise ValueError(f"解密失败: {str(e)}")
-
-
-def get_current_month_info() -> dict:
-    """获取当前月份的开始和结束时间。
-
-    该方法计算当前月份的开始日期和结束日期, 并将它们返回为字典,
-    字典中包含这两项的字符串表示。
-
-    :return: 包含当前月份开始和结束时间的字典。
-    :rtype: dict
-    """
-    now = datetime.now()
-
-    start_of_month = datetime(now.year, now.month, 1)
-
-    if now.month == 12:
-        next_month_start = datetime(now.year + 1, 1, 1)
-    else:
-        next_month_start = datetime(now.year, now.month + 1, 1)
-
-    end_of_month = next_month_start - timedelta(days=1)
-
-    start_time_str = start_of_month.strftime("%Y-%m-%d %H:%M:%S")
-    end_time_str = end_of_month.strftime("%Y-%m-%d 00:00:00Z")
-
-    return {"startTime": start_time_str, "endTime": end_time_str}
